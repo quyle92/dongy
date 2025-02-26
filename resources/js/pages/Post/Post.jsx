@@ -1,5 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import Layout from "@/layout/Layout";
+import { MaterialReactTable } from "material-react-table";
 
 export default function Post() {
     const { posts } = usePage().props;

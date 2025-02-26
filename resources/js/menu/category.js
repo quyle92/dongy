@@ -1,8 +1,13 @@
-import Category from "../pages/Category";
+import Category from "@/pages/Category";
+import CategoryIcon from "@mui/icons-material/Category";
 
-const Menu = [
+const menuItem = [
     {
         id: "category",
-        name: "category",
+        icon: CategoryIcon,
+        path: "/categories",
+        component: Category,
     },
 ];
+
+export default menuItem;

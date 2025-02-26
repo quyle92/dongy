@@ -1,7 +1,12 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
+import menuItems from "@/menu";
+import Pluralize from "pluralize";
+import { titleCase } from "@/utils/helpers";
 
 const Sidebar = () => {
+    const { url } = usePage();
+
     return (
         <aside
             id="layout-menu"
@@ -19,18 +24,21 @@ const Sidebar = () => {
             <div className="menu-inner-shadow"></div>
 
             <ul className="menu-inner py-1">
-                <li className="menu-item active">
-                    <Link href="/posts" className="menu-link">
-                        <i className="menu-icon tf-icons ti ti-smart-home"></i>
-                        <div data-i18n="Page 1">Page 1</div>
-                    </Link>
-                </li>
-                <li className="menu-item">
-                    <a href="page-2.html" className="menu-link">
-                        <i className="menu-icon tf-icons ti ti-app-window"></i>
-                        <div data-i18n="Page 2">Page 2</div>
-                    </a>
-                </li>
+                {menuItems.map(function (menuItem) {
+                    return (
+                        <li
+                            key={menuItem.id}
+                            className={`menu-item ${url === menuItem.path ? "active" : ""}`}
+                        >
+                            <Link href={menuItem.path} className="menu-link">
+                                <i className="menu-icon tf-icons ti ti-smart-home"></i>
+                                <div data-i18n="Page 1">
+                                    {Pluralize(titleCase(menuItem.id))}
+                                </div>
+                            </Link>
+                        </li>
+                    );
+                })}
             </ul>
         </aside>
     );

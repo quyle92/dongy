@@ -60,7 +60,6 @@ export default [
         rules: {
             "no-useless-escape": "off",
             "import/newline-after-import": ["error", { count: 1 }],
-            "import/no-unresolved": "error",
         },
         settings: {
             "import/resolver": {

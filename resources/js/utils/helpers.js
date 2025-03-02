@@ -9,3 +9,40 @@ export function titleCase(str) {
 
     return splitStr.join(" "); //https://stackoverflow.com/a/32589289/11297747
 }
+
+//shorten paragraph from "abc xyx" to "abc..."
+export function trimParagraph(paragraph, globalFilter, length = 100) {
+    //trim the string to the maximum length
+    const trimmedString = paragraph.substr(0, length);
+
+    //re-trim if we are in the middle of a word
+    return (
+        trimmedString.substr(
+            0,
+            Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")),
+        ) + "..."
+    );
+}
+
+export function extractWithContext(paragraph, term, contextLength = 50) {
+    const index = paragraph.toLowerCase().indexOf(term.toLowerCase());
+
+    if (index === -1) {
+        // Term not found, fallback to trimming the paragraph
+        return trimParagraph(paragraph, contextLength * 2);
+    }
+
+    const start = Math.max(0, index - contextLength);
+    const end = Math.min(paragraph.length, index + term.length + contextLength);
+
+    return (
+        (start > 0 ? "..." : "") +
+        paragraph.substring(start, end).trim() +
+        (end < paragraph.length ? "..." : "")
+    );
+}
+
+//http://abc.com?foo=bar => http://abc.com
+export function cleanUrl(url) {
+    return url.split("?")[0];
+}

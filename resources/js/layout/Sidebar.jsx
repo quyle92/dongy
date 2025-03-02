@@ -2,10 +2,11 @@ import React from "react";
 import { Link, usePage } from "@inertiajs/react";
 import menuItems from "@/menu";
 import Pluralize from "pluralize";
-import { titleCase } from "@/utils/helpers";
+import { titleCase, cleanUrl } from "@/utils/helpers";
 
 const Sidebar = () => {
-    const { url } = usePage();
+    const { url } = usePage(),
+        baseUrl = cleanUrl(url);
 
     return (
         <aside
@@ -28,7 +29,7 @@ const Sidebar = () => {
                     return (
                         <li
                             key={menuItem.id}
-                            className={`menu-item ${url === menuItem.path ? "active" : ""}`}
+                            className={`menu-item ${baseUrl === menuItem.path ? "active" : ""}`}
                         >
                             <Link href={menuItem.path} className="menu-link">
                                 <i className="menu-icon tf-icons ti ti-smart-home"></i>

@@ -14,6 +14,17 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::truncate();
-        Category::factory()->count(1)->create();
+        $cats = [
+            [
+                "name" => "học thuật"
+            ],
+            [
+                "name" => "bài thuốc dân gian"
+            ]
+        ];
+
+        foreach ($cats as $cat) {
+            Category::create($cat);
+        }
     }
 }

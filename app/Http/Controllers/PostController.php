@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Actions\GetPostList;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $postList = app(GetPostList::class)->handle($request);
+
         return Inertia::render('Post/Post', [
-            'posts' => Post::all()
+            'posts' => $postList
         ]);
     }
 

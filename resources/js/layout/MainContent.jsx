@@ -1,4 +1,5 @@
 import React from "react";
+import { Card } from "react-bootstrap";
 
 export default function MainContent({ children }) {
     return (
@@ -17,7 +18,9 @@ export default function MainContent({ children }) {
 
             <div className="content-wrapper">
                 <div className="container-xxl flex-grow-1 container-p-y">
-                    {children}
+                    <Card>
+                        <Card.Body>{children}</Card.Body>
+                    </Card>
                 </div>
             </div>
         </div>

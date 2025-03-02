@@ -5,11 +5,17 @@ import prettier from "eslint-plugin-prettier";
 import importPlugin from "eslint-plugin-import";
 
 export default [
+    js.configs.recommended,
     {
-        files: ["resources/js/**/*.jsx", "resources/js/**/*.js"], //this makes ESlint apply rules to files
+        rules: {
+            // "no-console": ["warn", { allow: ["warn", "error"] }],
+        },
+    },
+    {
         plugins: {
             react,
         },
+        files: ["resources/js/**/*.jsx", "resources/js/**/*.js"], //this makes ESlint apply rules to files
         settings: {
             react: {
                 version: "detect",

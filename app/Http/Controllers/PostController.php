@@ -18,6 +18,11 @@ class PostController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return Inertia::render('Post/CreatePost/CreatePost');
+    }
+
     //LINK /opt/homebrew/var/www/dongy/routes/web.php#get_a_post
     public function show($id)
     {

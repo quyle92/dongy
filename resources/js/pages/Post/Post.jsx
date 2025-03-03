@@ -10,8 +10,8 @@ export default function Post() {
     const { url } = usePage();
     const { posts } = usePage().props;
     const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 10,
+        pageIndex: posts.current_page - 1,
+        pageSize: posts.per_page,
     });
     const [globalFilter, setGlobalFilter] = useState("");
 
@@ -46,7 +46,9 @@ export default function Post() {
                         page: nextPagination.pageIndex + 1,
                         perPage: nextPagination.pageSize,
                     },
-                    { preserveState: true },
+                    {
+                        preserveState: true,
+                    },
                 );
                 setPagination(nextPagination);
             }}

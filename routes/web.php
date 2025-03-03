@@ -10,6 +10,7 @@ Route::get("/test", function () {
 });
 //ANCHOR["id=get_a_post]
 Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/create', [PostController::class, 'create']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::view('/welcome', 'welcome');

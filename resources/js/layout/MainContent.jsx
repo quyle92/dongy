@@ -1,7 +1,9 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { usePage } from "@inertiajs/react";
 
 export default function MainContent({ children }) {
+    const { pageName } = usePage().props;
+
     return (
         <div className="layout-page">
             <nav
@@ -12,15 +14,15 @@ export default function MainContent({ children }) {
                     className="navbar-nav-right d-flex align-items-center"
                     id="navbar-collapse"
                 >
-                    <div className="navbar-nav align-items-center"></div>
+                    <div className="navbar-nav align-items-center fw-bold initialism breadcrumb">
+                        {pageName}
+                    </div>
                 </div>
             </nav>
 
             <div className="content-wrapper">
                 <div className="container-xxl flex-grow-1 container-p-y">
-                    <Card>
-                        <Card.Body>{children}</Card.Body>
-                    </Card>
+                    {children}
                 </div>
             </div>
         </div>

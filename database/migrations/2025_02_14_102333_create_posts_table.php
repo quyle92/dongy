@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("slug")->unique();
             $table->integer("category_id")->nullable();
             $table->text("content");
+            $table->string("status");
             $table->timestamps();
         });
     }

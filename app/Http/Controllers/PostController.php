@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpsertPostRequest;
 use App\Actions\GetPostList;
+use App\Enums\PostStatus;
 
 class PostController extends Controller
 {
@@ -21,6 +22,7 @@ class PostController extends Controller
 
         $postList = app(GetPostList::class)->handle($request);
         return Inertia::render('Post/Post', [
+            'pageName' => "Posts",
             'posts' => $postList
         ]);
     }
@@ -43,7 +45,7 @@ class PostController extends Controller
         ];
     }
 
-    public function store(StorePostRequest $request)
+    public function store(UpsertPostRequest $request)
     {
         Post::create($request->validated());
 
@@ -52,16 +54,41 @@ class PostController extends Controller
 
 
     //LINK /opt/homebrew/var/www/dongy/routes/web.php#get_a_post
-    public function show($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-
-        return Inertia::render('Post/EditPost', [
+        return Inertia::render('Post/EditPost/EditPost', [
             'post' => $post->only(
                 'id',
                 'title',
                 'content',
+                'category_id',
+                'status',
             ),
+            "pageName" => "Edit Post",
+            'categories' => Category::all(["id", "name", "slug"]),
+            "imageUploadUrl" => route("posts.create.uploadImage"),
+            "postStatus" => PostStatus::values()
         ]);
+    }
+
+    public function update(UpsertPostRequest $request, Post $post)
+    {
+        $validated = (object) $request->validated();
+
+        $post->title = $validated->title;
+        $post->category_id = $validated->category_id;
+        $post->content = $validated->content;
+        $post->status = $validated->status;
+
+        $post->save();
+
+        return redirect()->back()->with('message', 'Post updated!');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return redirect()->back()->with('message', 'Post deleted!');
     }
 }

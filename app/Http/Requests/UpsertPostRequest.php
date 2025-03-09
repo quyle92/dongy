@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Category;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Post;
+use App\Models\Category;
+use App\Enums\PostStatus;
 
-class StorePostRequest extends FormRequest
+class UpsertPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +25,14 @@ class StorePostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = request()->post?->id;
+
         return [
-            'title' => ['required', 'unique:posts', 'max:255'],
+            'title' => ['required',  'max:255', $id ? Rule::unique(Post::table())->ignore($id) : 'unique:' . Post::table()],
             'content' => ['required'],
             'category_id' => ['required', 'exists:' . Category::table() . ",id"],
+            "status" => ["required", Rule::in(PostStatus::values())],
+
         ];
     }
 

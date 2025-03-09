@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import Layout from "@/layout/Layout";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { ClassicEditor } from "ckeditor5";
 import { usePage, useForm } from "@inertiajs/react";
 
 import "ckeditor5/ckeditor5.css";
-import { plugins } from "./ckeditor/plugins";
-import { toolbar } from "./ckeditor/toolbar";
-import { imageConfig } from "./ckeditor/imageConfig";
-import { headingConfig } from "./ckeditor/headingConfig";
-import { tableConfig } from "./ckeditor/tableConfig";
-import { fontFamilyConfig } from "./ckeditor/fontFamilyConfig";
+import { plugins } from "@/components/ckeditor/plugins";
+import { toolbar } from "@/components/ckeditor/toolbar";
+import { imageConfig } from "@/components/ckeditor/imageConfig";
+import { headingConfig } from "@/components/ckeditor/headingConfig";
+import { tableConfig } from "@/components/ckeditor/tableConfig";
+import { fontFamilyConfig } from "@/components/ckeditor/fontFamilyConfig";
 import { Card, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { SimpleUploadAdapter } from "ckeditor5";
 
 function CreatePost() {
     const { categories, imageUploadUrl, flash } = usePage().props;
-    const [success, setSuccess] = useState(false);
-    const { data, setData, post, processing, errors, clearErrors } = useForm({
+    const {
+        data,
+        setData,
+        post,
+        processing,
+        errors,
+        clearErrors,
+        recentlySuccessful,
+    } = useForm({
         title: "",
         content: "",
         category_id: "",
@@ -27,7 +34,6 @@ function CreatePost() {
         e.preventDefault();
         post("/posts", {
             onSuccess: () => {
-                setSuccess(true);
                 clearErrors();
             },
         });
@@ -35,7 +41,11 @@ function CreatePost() {
 
     return (
         <Form noValidate onSubmit={submit}>
-            {success && <Alert variant={"success"}>{flash.message}</Alert>}
+            {recentlySuccessful && (
+                <Alert variant={"success"} dismissible>
+                    {flash.message}
+                </Alert>
+            )}
             <Row md={2} className="g-3">
                 <Col md={10}>
                     <Card>

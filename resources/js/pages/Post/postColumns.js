@@ -1,4 +1,9 @@
-import { extractWithContext } from "@/utils/helpers";
+import { extractWithContext, swalConfirmBox } from "@/utils/helpers";
+import startCase from "lodash/startCase";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Stack, Button } from "react-bootstrap";
+import { router } from "@inertiajs/react";
 
 export const columns = [
     {
@@ -48,5 +53,45 @@ export const columns = [
                 />
             );
         },
+    },
+    {
+        accessorKey: "status",
+        header: "Status",
+        size: 50,
+        enableSorting: false,
+        enableColumnFilter: false,
+    },
+    {
+        accessorKey: "action",
+        header: startCase("action"),
+        enableGlobalFilter: false,
+        Cell: ({ cell }) => {
+            const id = cell.row.original.id;
+            return (
+                <Stack direction="horizontal" gap={2}>
+                    <Button
+                        size="sm"
+                        variant="info"
+                        onClick={() => router.get(`/posts/${id}/edit`)}
+                    >
+                        <EditIcon />
+                    </Button>
+                    <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() =>
+                            swalConfirmBox().then((result) => {
+                                if (result.isConfirmed) {
+                                    router.delete("/posts/" + id);
+                                }
+                            })
+                        }
+                    >
+                        <DeleteIcon />
+                    </Button>
+                </Stack>
+            );
+        },
+        enableSorting: false,
     },
 ];

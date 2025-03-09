@@ -1,3 +1,8 @@
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 export function titleCase(str) {
     var splitStr = str.toLowerCase().split(" ");
     for (var i = 0; i < splitStr.length; i++) {
@@ -46,3 +51,11 @@ export function extractWithContext(paragraph, term, contextLength = 50) {
 export function cleanUrl(url) {
     return url.split("?")[0];
 }
+
+export const swalConfirmBox = () => {
+    return MySwal.fire({
+        title: "Are you sure to proceed?",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+    });
+};

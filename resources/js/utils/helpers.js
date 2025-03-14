@@ -70,3 +70,7 @@ export function removeHTMLTags(htmlString) {
     // Trim whitespace
     return textContent.trim();
 }
+
+export function adminRoute(path) {
+    return "/admin" + path;
+}

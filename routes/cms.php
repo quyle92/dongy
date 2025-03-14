@@ -9,22 +9,20 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get("/test", function () {
+    printBacktrace();
     return Post::with('category')->paginate();
 });
 
-Route::get("/login", [LoginController::class, 'login'])->name('login');
-Route::post("/authenticate", [LoginController::class, 'authenticate'])->name('login');
-Route::middleware('auth')->group(function () {
+Route::get("/login", [LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::post("/authenticate", [LoginController::class, 'authenticate'])->middleware('guest');
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get("/logout", [LoginController::class, 'logout'])->name('login');
 
     /**
      * Post
      * */
     //ANCHOR["id=get_a_post]
-    Route::get("/", function () {
-        return redirect('/posts');
-    });
-    Route::get('/posts', [PostController::class, 'index']);
+    Route::get('/posts', [PostController::class, 'index'])->name("home");
     Route::get('/posts/create', [PostController::class, 'create']);
     Route::post('/posts/create/upload-image', [PostController::class, 'uploadImage'])->name("posts.create.uploadImage");
     Route::post('/posts', [PostController::class, 'store']);

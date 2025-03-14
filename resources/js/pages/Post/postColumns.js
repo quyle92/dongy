@@ -1,4 +1,5 @@
 import {
+    adminRoute,
     extractWithContext,
     removeHTMLTags,
     swalConfirmBox,
@@ -78,7 +79,9 @@ export const columns = [
                     <Button
                         size="sm"
                         variant="info"
-                        onClick={() => router.get(`/posts/${id}/edit`)}
+                        onClick={() => {
+                            router.get(adminRoute(`/posts/${id}/edit`));
+                        }}
                     >
                         <EditIcon />
                     </Button>
@@ -88,7 +91,7 @@ export const columns = [
                         onClick={() =>
                             swalConfirmBox().then((result) => {
                                 if (result.isConfirmed) {
-                                    router.delete("/posts/" + id);
+                                    router.delete(adminRoute("/posts/" + id));
                                 }
                             })
                         }

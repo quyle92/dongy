@@ -1,11 +1,12 @@
 import Category from "@/pages/Category";
+import { adminRoute } from "@/utils/helpers";
 import CategoryIcon from "@mui/icons-material/Category";
 
 const menuItem = [
     {
         id: "category",
         icon: CategoryIcon,
-        path: "/categories",
+        path: adminRoute("/categories"),
         component: Category,
     },
 ];

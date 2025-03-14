@@ -1,6 +1,7 @@
 import React from "react";
 import { usePage, router } from "@inertiajs/react";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { adminRoute } from "@/utils/helpers";
 
 export default function MainContent({ children }) {
     const { pageName } = usePage().props;
@@ -23,7 +24,7 @@ export default function MainContent({ children }) {
                     <button
                         type="button"
                         className="btn btn-link nav-link p-0"
-                        onClick={() => router.get("/logout")} // Define your logout function
+                        onClick={() => router.get(adminRoute("/logout"))} // Define your logout function
                     >
                         <LogoutIcon />
                     </button>

@@ -32,7 +32,6 @@ class UpsertPostRequest extends FormRequest
             'content' => ['required'],
             'category_id' => ['required', 'exists:' . Category::table() . ",id"],
             "status" => ["required", Rule::in(PostStatus::values())],
-
         ];
     }
 

@@ -24,7 +24,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials, $remember = true)) {
             $request->session()->regenerate();
-            return redirect('/');
+            return redirect()->intended('/admin/posts');
         }
 
         return back()->withErrors([

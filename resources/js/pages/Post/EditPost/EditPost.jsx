@@ -13,6 +13,7 @@ import { tableConfig } from "@/components/ckeditor/tableConfig";
 import { fontFamilyConfig } from "@/components/ckeditor/fontFamilyConfig";
 import { Card, Row, Col, Form, Button, Alert, Stack } from "react-bootstrap";
 import { SimpleUploadAdapter } from "ckeditor5";
+import { adminRoute } from "@/utils/helpers";
 
 function EditPost() {
     const { categories, imageUploadUrl, flash, post, postStatus } =
@@ -35,7 +36,7 @@ function EditPost() {
 
     function submit(e) {
         e.preventDefault();
-        put(`/posts/${post.id}`, {
+        put(adminRoute(`/posts/${post.id}`), {
             onSuccess: () => {
                 clearErrors();
             },

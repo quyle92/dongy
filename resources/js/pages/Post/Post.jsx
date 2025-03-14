@@ -4,6 +4,7 @@ import Layout from "@/layout/Layout";
 import { MaterialReactTable } from "material-react-table";
 import { columns } from "./postColumns";
 import { Alert, Button, Card } from "react-bootstrap";
+import { adminRoute } from "@/utils/helpers";
 
 export default function Post() {
     const { url } = usePage();
@@ -24,7 +25,7 @@ export default function Post() {
                 )}
                 <Button
                     variant="primary"
-                    onClick={() => router.get("/posts/create")}
+                    onClick={() => router.get(adminRoute("/posts/create"))}
                     className="mb-2"
                 >
                     Create

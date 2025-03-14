@@ -32,7 +32,8 @@ class PostController extends Controller
         return Inertia::render('Post/CreatePost/CreatePost', [
             "pageName" => "Create Post",
             'categories' => Category::all(["id", "name", "slug"]),
-            "imageUploadUrl" => route("posts.create.uploadImage")
+            "imageUploadUrl" => route("posts.create.uploadImage"),
+            "postStatus" => PostStatus::values()
         ]);
     }
 

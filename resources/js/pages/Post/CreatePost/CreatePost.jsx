@@ -11,11 +11,12 @@ import { imageConfig } from "@/components/ckeditor/imageConfig";
 import { headingConfig } from "@/components/ckeditor/headingConfig";
 import { tableConfig } from "@/components/ckeditor/tableConfig";
 import { fontFamilyConfig } from "@/components/ckeditor/fontFamilyConfig";
-import { Card, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { Card, Row, Col, Form, Button, Alert, Stack } from "react-bootstrap";
 import { SimpleUploadAdapter } from "ckeditor5";
+import { adminRoute } from "@/utils/helpers";
 
 function CreatePost() {
-    const { categories, imageUploadUrl, flash } = usePage().props;
+    const { categories, imageUploadUrl, flash, postStatus } = usePage().props;
     const {
         data,
         setData,
@@ -32,7 +33,8 @@ function CreatePost() {
 
     function submit(e) {
         e.preventDefault();
-        post("/posts", {
+        // console.log("🚀 ~ adminRoute("/posts"):", adminRoute("/posts"))
+        post(adminRoute("/posts"), {
             onSuccess: () => {
                 clearErrors();
             },
@@ -112,43 +114,86 @@ function CreatePost() {
                     </Card>
                 </Col>
                 <Col md={2}>
-                    <Card>
-                        <Card.Header
-                            style={{
-                                background: "#F8F8F8",
-                            }}
-                            className="fw-bold"
-                        >
-                            Category
-                        </Card.Header>
-                        <Card.Body>
-                            {categories.map((category, index) => {
-                                return (
-                                    <Form.Check
-                                        type="radio"
-                                        key={category.id}
-                                        id={category.id}
-                                        value={category.id}
-                                        label={category.name}
-                                        name="category_id"
-                                        onChange={(e) =>
-                                            setData(
-                                                e.target.name,
-                                                e.target.value,
-                                            )
-                                        }
-                                        isInvalid={errors.category_id}
-                                        feedback={
-                                            index === categories.length - 1
-                                                ? errors.category_id
-                                                : ""
-                                        }
-                                        feedbackType="invalid"
-                                    />
-                                );
-                            })}
-                        </Card.Body>
-                    </Card>
+                    <Stack gap={3}>
+                        <Card>
+                            <Card.Header
+                                style={{
+                                    background: "#F8F8F8",
+                                }}
+                                className="fw-bold"
+                            >
+                                Category
+                            </Card.Header>
+                            <Card.Body>
+                                {categories.map((category, index) => {
+                                    return (
+                                        <Form.Check
+                                            type="radio"
+                                            key={category.id}
+                                            id={category.id}
+                                            value={category.id}
+                                            label={category.name}
+                                            name="category_id"
+                                            onChange={(e) =>
+                                                setData(
+                                                    e.target.name,
+                                                    e.target.value,
+                                                )
+                                            }
+                                            isInvalid={errors.category_id}
+                                            feedback={
+                                                index === categories.length - 1
+                                                    ? errors.category_id
+                                                    : ""
+                                            }
+                                            feedbackType="invalid"
+                                        />
+                                    );
+                                })}
+                            </Card.Body>
+                        </Card>
+                        <Card>
+                            <Card.Header
+                                style={{
+                                    background: "#F8F8F8",
+                                }}
+                                className="fw-bold"
+                            >
+                                Status
+                            </Card.Header>
+                            <Card.Body>
+                                {postStatus.map((status, index) => {
+                                    return (
+                                        <Form.Check
+                                            type="radio"
+                                            key={status}
+                                            value={status}
+                                            label={status}
+                                            name="status"
+                                            onChange={(e) =>
+                                                setData(
+                                                    e.target.name,
+                                                    e.target.value,
+                                                )
+                                            }
+                                            isInvalid={errors.status}
+                                            feedback={
+                                                index === postStatus.length - 1
+                                                    ? errors.status
+                                                    : ""
+                                            }
+                                            feedbackType="invalid"
+                                            checked={
+                                                status == data.status
+                                                    ? true
+                                                    : false
+                                            }
+                                        />
+                                    );
+                                })}
+                            </Card.Body>
+                        </Card>
+                    </Stack>
                 </Col>
             </Row>
         </Form>

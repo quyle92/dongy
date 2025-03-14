@@ -1,5 +1,6 @@
 import React from "react";
-import { usePage } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export default function MainContent({ children }) {
     const { pageName } = usePage().props;
@@ -17,6 +18,15 @@ export default function MainContent({ children }) {
                     <div className="navbar-nav align-items-center fw-bold initialism breadcrumb">
                         {pageName}
                     </div>
+                </div>
+                <div className="navbar-nav ms-auto">
+                    <button
+                        type="button"
+                        className="btn btn-link nav-link p-0"
+                        onClick={() => router.get("/logout")} // Define your logout function
+                    >
+                        <LogoutIcon />
+                    </button>
                 </div>
             </nav>
 

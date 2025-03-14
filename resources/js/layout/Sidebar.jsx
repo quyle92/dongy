@@ -27,9 +27,7 @@ const Sidebar = () => {
                     </span>
                 </a>
             </div>
-
             <div className="menu-inner-shadow"></div>
-
             <ul className="menu-inner py-1">
                 {menuItems.map(function (menuItem) {
                     return (

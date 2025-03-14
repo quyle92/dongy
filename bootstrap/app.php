@@ -3,7 +3,6 @@
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Application;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Middleware\HandleInertiaRequests;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -13,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->redirectGuestsTo('/login');
+
         $middleware->web(append: [
             HandleInertiaRequests::class
         ]);
@@ -23,7 +24,11 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Throwable $e) {
-            if (!$e instanceof \Illuminate\Validation\ValidationException)
+            if (
+                !$e instanceof \Illuminate\Validation\ValidationException &&
+                !$e  instanceof \Illuminate\Auth\AuthenticationException
+            ) {
                 dd($e);
+            }
         });
     })->create();

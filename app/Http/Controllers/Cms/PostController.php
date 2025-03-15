@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cms;
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Http\Requests\UpsertPostRequest;
-use App\Actions\GetPostList;
+use App\Http\Controllers\Controller;
 use App\Enums\PostStatus;
+use App\Actions\GetPostList;
 
 class PostController extends Controller
 {

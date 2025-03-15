@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Cms;
 
-use App\Models\Herb;
 use Illuminate\Http\Request;
+use App\Models\Formula;
+use App\Http\Controllers\Controller;
 
-class HerbController extends Controller
+class FormulaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +35,7 @@ class HerbController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Herb $herb)
+    public function show(Formula $formula)
     {
         //
     }
@@ -42,7 +43,7 @@ class HerbController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Herb $herb)
+    public function edit(Formula $formula)
     {
         //
     }
@@ -50,7 +51,7 @@ class HerbController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Herb $herb)
+    public function update(Request $request, Formula $formula)
     {
         //
     }
@@ -58,7 +59,7 @@ class HerbController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Herb $herb)
+    public function destroy(Formula $formula)
     {
         //
     }

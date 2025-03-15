@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Cms\PostController;
+use App\Http\Controllers\Cms\CategoryController;
+use App\Http\Controllers\Cms\Auth\LoginController;
 
 Route::get("/test", function () {
     printBacktrace();

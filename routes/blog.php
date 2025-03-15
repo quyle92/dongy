@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Http\Controllers\Blog\PostController;
 
-Route::get('/', function (Request $request) {
-    return view('blog.index', [
-        "posts" => Post::simplePaginate()
-    ]);
-});
+Route::get('/', [PostController::class, 'index']);
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);

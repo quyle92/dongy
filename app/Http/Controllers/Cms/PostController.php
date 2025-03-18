@@ -81,6 +81,7 @@ class PostController extends Controller
         $post->category_id = $validated->category_id;
         $post->content = $validated->content;
         $post->status = $validated->status;
+        $post->source = $validated->source;
 
         $post->save();
 

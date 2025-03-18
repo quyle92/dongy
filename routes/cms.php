@@ -26,7 +26,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/posts/create/upload-image', [PostController::class, 'uploadImage'])->name("posts.create.uploadImage");
     Route::post('/posts', [PostController::class, 'store']);
     Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
-    Route::put('/posts/{post}', [PostController::class, 'update']);
+    Route::post('/posts/{post}', [PostController::class, 'update']);
     Route::delete('/posts/{post}', [PostController::class, 'destroy']);
 
 

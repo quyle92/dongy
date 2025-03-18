@@ -11,8 +11,8 @@
                     @foreach ($posts as $post)
                     <!-- Post preview-->
                     <div class="post-preview">
-                        <a href="/posts/{{$post->slug}}">
-                            <h2 class="post-title">{{$post->title}}</h2>
+                        <a href="/posts/{{$post->slug}}" class="link-underline link-underline-opacity-0 ">
+                            <h2 class="post-title">{{Str::title($post->title)}}</h2>
                         </a>
                         <p>{!! Str::limit($post->content,200) !!}</p>
                     </div>

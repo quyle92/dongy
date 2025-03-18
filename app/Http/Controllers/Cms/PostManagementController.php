@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Enums\PostStatus;
 use App\Actions\GetPostList;
 
-class PostController extends Controller
+class PostManagementController extends Controller
 {
     public function index(Request $request)
     {
@@ -43,7 +43,7 @@ class PostController extends Controller
         $path = Storage::putFile('photos',  $request->file('upload'));
 
         return [
-            "url" => Storage::url($path)
+            "url" => parse_url(Storage::url($path), PHP_URL_PATH)
         ];
     }
 
@@ -65,6 +65,7 @@ class PostController extends Controller
                 'content',
                 'category_id',
                 'status',
+                'source',
             ),
             "pageName" => "Edit Post",
             'categories' => Category::all(["id", "name", "slug"]),
@@ -81,6 +82,7 @@ class PostController extends Controller
         $post->category_id = $validated->category_id;
         $post->content = $validated->content;
         $post->status = $validated->status;
+        $post->source = $validated->source;
 
         $post->save();
 

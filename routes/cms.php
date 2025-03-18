@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Http\Controllers\Cms\PostController;
+use App\Http\Controllers\Cms\PostManagementController;
 use App\Http\Controllers\Cms\CategoryController;
 use App\Http\Controllers\Cms\Auth\LoginController;
 
@@ -21,13 +21,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
      * Post
      * */
     //ANCHOR["id=get_a_post]
-    Route::get('/posts', [PostController::class, 'index'])->name("home");
-    Route::get('/posts/create', [PostController::class, 'create']);
-    Route::post('/posts/create/upload-image', [PostController::class, 'uploadImage'])->name("posts.create.uploadImage");
-    Route::post('/posts', [PostController::class, 'store']);
-    Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
-    Route::put('/posts/{post}', [PostController::class, 'update']);
-    Route::delete('/posts/{post}', [PostController::class, 'destroy']);
+    Route::get('/posts', [PostManagementController::class, 'index'])->name("home");
+    Route::get('/posts/create', [PostManagementController::class, 'create']);
+    Route::post('/posts/create/upload-image', [PostManagementController::class, 'uploadImage'])->name("posts.create.uploadImage");
+    Route::post('/posts', [PostManagementController::class, 'store']);
+    Route::get('/posts/{post}/edit', [PostManagementController::class, 'edit']);
+    Route::post('/posts/{post}', [PostManagementController::class, 'update']);
+    Route::delete('/posts/{post}', [PostManagementController::class, 'destroy']);
 
 
     /**

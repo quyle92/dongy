@@ -3,7 +3,7 @@
     <form class="d-flex" action="{{ $attributes['action'] }}" method="GET">
         @csrf
         <div class="input-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Search" name="search">
+            <input class="form-control form-control-lg" type="text" placeholder="Search" name="search" value="{{$attributes['search']}}">
             <button class="btn btn-primary px-4" type="submit">
                 <i class="bi bi-search"></i>
             </button>

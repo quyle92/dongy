@@ -32,6 +32,7 @@ class PostController extends Controller
 
         return view('blog.home', [
             "posts" => $posts,
+            "search" => $search,
         ]);
     }
 }

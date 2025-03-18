@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("category_id")->nullable();
             $table->text("content");
             $table->string("status");
+            $table->string("source");
             $table->timestamps();
         });
     }

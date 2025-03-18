@@ -6,6 +6,8 @@ import { titleCase } from "@/utils/helpers";
 
 const Sidebar = () => {
     const { url } = usePage();
+    // eslint-disable-next-line no-undef
+    const appDomain = window.location.origin;
 
     //prevent page reload when re-clicking same Page.
     const itemClick = (event, currentPath) => {
@@ -20,7 +22,7 @@ const Sidebar = () => {
             className="layout-menu menu-vertical menu bg-menu-theme"
         >
             <div className="app-brand demo">
-                <a href={undefined} className="app-brand-link">
+                <a href={appDomain} className="app-brand-link">
                     <span className="app-brand-logo demo"></span>
                     <span className="app-brand-text demo menu-text fw-bold">
                         TCM

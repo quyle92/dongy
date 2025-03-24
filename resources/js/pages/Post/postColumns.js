@@ -45,6 +45,15 @@ export const columns = [
         size: 150,
         enableSorting: false,
         enableColumnFilter: false,
+        Cell: ({ cell }) => {
+            const permalink = cell.row.original.permalink;
+            const title = cell.getValue();
+            return (
+                <a href={permalink} target="_blank" rel="noreferrer">
+                    {title}
+                </a>
+            );
+        },
     },
     {
         accessorKey: "category.name",

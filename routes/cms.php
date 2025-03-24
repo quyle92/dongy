@@ -9,8 +9,7 @@ use App\Http\Controllers\Cms\CategoryController;
 use App\Http\Controllers\Cms\Auth\LoginController;
 
 Route::get("/test", function () {
-    printBacktrace();
-    return Post::with('category')->paginate();
+    return Post::first();
 });
 
 Route::get("/login", [LoginController::class, 'login'])->name('login')->middleware('guest');

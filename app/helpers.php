@@ -10,6 +10,8 @@ use Illuminate\Http\File;
 use Illuminate\Filesystem\Filesystem;
 use BadMethodCallException as BadMethodCallException;
 
+const FILESYSTEM_IMAGE_PREFIX = "images";
+
 if (!function_exists('readJson')) {
     function readJson(string $path): array
     {

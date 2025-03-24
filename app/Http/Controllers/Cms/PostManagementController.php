@@ -42,7 +42,7 @@ class PostManagementController extends Controller
 
     public function uploadImage(Request $request)
     {
-        $path = Storage::putFile('photos',  $request->file('upload'));
+        $path = Storage::putFile(FILESYSTEM_IMAGE_PREFIX,  $request->file('upload'));
 
         return [
             "url" => parse_url(Storage::url($path), PHP_URL_PATH)

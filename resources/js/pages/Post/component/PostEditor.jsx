@@ -75,7 +75,13 @@ function PostEditor({ formData, submitRoute }) {
                                 <div className="mb-3">
                                     <strong>
                                         Permalink:{" "}
-                                        <a href={permalink}>{permalink}</a>
+                                        <a
+                                            href={permalink}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                        >
+                                            {permalink}
+                                        </a>
                                     </strong>
                                 </div>
                                 <div className="mb-3">

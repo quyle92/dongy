@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Http\Controllers\Cms\PostManagementController;
+use App\Http\Controllers\Cms\PictureManagementController;
 use App\Http\Controllers\Cms\CategoryController;
 use App\Http\Controllers\Cms\Auth\LoginController;
 
@@ -25,10 +26,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/posts/create', [PostManagementController::class, 'create']);
     Route::post('/posts/create/upload-image', [PostManagementController::class, 'uploadImage'])->name("posts.create.uploadImage");
     Route::post('/posts', [PostManagementController::class, 'store']);
-    Route::get('/posts/{post}/edit', [PostManagementController::class, 'edit']);
-    Route::post('/posts/{post}', [PostManagementController::class, 'update']);
-    Route::delete('/posts/{post}', [PostManagementController::class, 'destroy']);
-
+    Route::get('/posts/{post}/edit', [PostManagementController::class, 'edit'])->name("posts.edit");
+    Route::post('/posts/update/{post}', [PostManagementController::class, 'update'])->name("posts.update");
+    Route::post('/posts/delete', [PostManagementController::class, 'destroy'])->name("posts.delete");
 
     /**
      * Category

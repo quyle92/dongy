@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Enums\PostStatus;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Enums\PostStatus;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -17,8 +18,10 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $title = $this->faker->words(3, true);
         return [
-            "title" => $this->faker->words(3, true),
+            "title" => $title,
+            "slug" => Str::slug($title),
             "category_id" => 1,
             "content" => $this->faker->paragraphs(1, true),
             "status" => PostStatus::PUBLISHED

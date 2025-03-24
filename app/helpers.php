@@ -235,3 +235,11 @@ if (!function_exists("parseBool")) {
         return filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
 }
+
+if (!function_exists("extractImagePaths")) {
+    function extractImagePaths($content)
+    {
+        preg_match_all('/<img[^>]+src=["\']([^"\']+)["\']/i', $content, $matches);
+        return $matches[1] ?? []; // Return all extracted image paths
+    }
+}

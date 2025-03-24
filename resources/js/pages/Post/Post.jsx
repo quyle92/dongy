@@ -5,10 +5,13 @@ import { MaterialReactTable } from "material-react-table";
 import { columns } from "./postColumns";
 import { Alert, Button, Card } from "react-bootstrap";
 import { adminRoute } from "@/utils/helpers";
+import isEmpty from "lodash/isEmpty";
+import { swalConfirmBox } from "@/utils/helpers";
 
 export default function Post() {
     const { url } = usePage();
-    const { posts, flash } = usePage().props;
+    const { posts, flash, postsDeletePath } = usePage().props;
+
     const [pagination, setPagination] = useState({
         pageIndex: posts.current_page - 1,
         pageSize: posts.per_page,
@@ -41,6 +44,42 @@ export default function Post() {
                     columns={columns}
                     data={posts.data}
                     rowCount={posts.total}
+                    enableRowSelection={true}
+                    enableBatchRowSelection={false}
+                    renderTopToolbarCustomActions={({ table }) => {
+                        return (
+                            <Button
+                                variant="danger"
+                                onClick={(e) => {
+                                    /**
+                                     * An object representing the selected rows in the table.
+                                     * The keys are row indices (numbers), and the values are booleans
+                                     * indicating whether the row is selected (true) or not (false).
+                                     *
+                                     * @type {Object<number, boolean>}
+                                     */
+                                    const rowSelected =
+                                        table.getState().rowSelection;
+
+                                    if (isEmpty(rowSelected)) {
+                                        e.preventDefault();
+                                        return;
+                                    }
+
+                                    swalConfirmBox().then((rs) => {
+                                        if (rs.isConfirmed) {
+                                            router.post(postsDeletePath, {
+                                                postsToBeDeleted:
+                                                    Object.keys(rowSelected),
+                                            });
+                                        }
+                                    });
+                                }}
+                            >
+                                Delete Selected Rows
+                            </Button>
+                        );
+                    }}
                     manualFiltering //turn off built-in client-side filtering
                     manualPagination //turn off built-in client-side pagination
                     manualSorting //turn off built-in client-side sorting

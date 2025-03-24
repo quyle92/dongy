@@ -16,7 +16,8 @@ import { adminRoute } from "@/utils/helpers";
 import isEmpty from "lodash/isEmpty";
 
 function PostEditor({ formData, submitRoute }) {
-    const { categories, imageUploadUrl, flash, postStatus } = usePage().props;
+    const { categories, imageUploadUrl, flash, postStatus, permalink } =
+        usePage().props;
     const {
         data,
         setData,
@@ -38,11 +39,11 @@ function PostEditor({ formData, submitRoute }) {
 
     return (
         <Form noValidate onSubmit={submit}>
-            {recentlySuccessful && (
+            {(recentlySuccessful || flash.message) && (
                 <Alert variant={"success"} dismissible>
                     {flash.message}
                 </Alert>
-            )}{" "}
+            )}
             {!isEmpty(errors) && (
                 <Alert variant={"danger"} dismissible>
                     There is something wrong with your input. Please check
@@ -55,7 +56,7 @@ function PostEditor({ formData, submitRoute }) {
                         <Card.Body>
                             <div className="row">
                                 <SubmitButton processing={processing} />
-                                <div className="mb-3">
+                                <div className="mb-1">
                                     <Form.Control
                                         type="text"
                                         className="form-control"
@@ -70,6 +71,12 @@ function PostEditor({ formData, submitRoute }) {
                                     <Form.Control.Feedback type="invalid">
                                         {errors.title}
                                     </Form.Control.Feedback>
+                                </div>
+                                <div className="mb-3">
+                                    <strong>
+                                        Permalink:{" "}
+                                        <a href={permalink}>{permalink}</a>
+                                    </strong>
                                 </div>
                                 <div className="mb-3">
                                     <CKEditor
@@ -209,6 +216,11 @@ function PostEditor({ formData, submitRoute }) {
                                 })}
                             </Card.Body>
                         </Card>
+                        {/* <div className="d-flex mb-3">
+                            <Button variant="info" type="submit">
+                                View
+                            </Button>
+                        </div> */}
                     </Stack>
                 </Col>
             </Row>

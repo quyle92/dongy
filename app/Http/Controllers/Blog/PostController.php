@@ -12,7 +12,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         return view('blog.home', [
-            "posts" => Post::where("status", PostStatus::PUBLISHED)->simplePaginate()
+            "posts" => Post::where("status", PostStatus::PUBLISHED)->orderByDesc("id")->simplePaginate()
         ]);
     }
 

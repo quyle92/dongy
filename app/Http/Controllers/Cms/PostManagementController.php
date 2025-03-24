@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cms;
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
@@ -24,7 +25,8 @@ class PostManagementController extends Controller
         $postList = app(GetPostList::class)->handle($request);
         return Inertia::render('Post/Post', [
             'pageName' => "Posts",
-            'posts' => $postList
+            'posts' => $postList,
+            "postsDeletePath" => parse_url(route("posts.delete", PHP_URL_PATH))["path"]
         ]);
     }
 
@@ -49,9 +51,11 @@ class PostManagementController extends Controller
 
     public function store(UpsertPostRequest $request)
     {
-        Post::create($request->validated());
+        $post = Post::create($request->validated());
 
-        return redirect()->back()->with('message', 'Post created!');
+        return Redirect::route('posts.edit', $post->id)
+            ->with('message', 'Post created!')
+        ;
     }
 
 
@@ -70,7 +74,9 @@ class PostManagementController extends Controller
             "pageName" => "Edit Post",
             'categories' => Category::all(["id", "name", "slug"]),
             "imageUploadUrl" => route("posts.create.uploadImage"),
-            "postStatus" => PostStatus::values()
+            "postStatus" => PostStatus::values(),
+            "permalink" => "/" . Post::table() . "/" . $post->slug,
+            "postUpdatePath" => parse_url(route("posts.update", PHP_URL_PATH))["path"]
         ]);
     }
 
@@ -89,9 +95,14 @@ class PostManagementController extends Controller
         return redirect()->back()->with('message', 'Post updated!');
     }
 
-    public function destroy(Post $post)
+    public function destroy(Request $request)
     {
-        $post->delete();
+        $postIds = $request->postsToBeDeleted;
+        // dd(postIds);
+
+        foreach ($postIds as $id) {
+            Post::findOrFail($id)->delete();
+        }
 
         return redirect()->back()->with('message', 'Post deleted!');
     }

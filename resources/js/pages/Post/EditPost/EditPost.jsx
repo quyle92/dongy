@@ -4,7 +4,7 @@ import PostEditor from "@/pages/Post/component/PostEditor";
 import { usePage } from "@inertiajs/react";
 
 function EditPost() {
-    const { post } = usePage().props;
+    const { post, postUpdatePath } = usePage().props;
 
     return (
         <PostEditor
@@ -15,7 +15,7 @@ function EditPost() {
                 status: post.status,
                 source: post.source,
             }}
-            submitRoute={`/posts/${post.id}`}
+            submitRoute={postUpdatePath}
         />
     );
 }

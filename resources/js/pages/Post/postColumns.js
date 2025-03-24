@@ -2,22 +2,43 @@ import {
     adminRoute,
     extractWithContext,
     removeHTMLTags,
-    swalConfirmBox,
 } from "@/utils/helpers";
 import startCase from "lodash/startCase";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Stack, Button } from "react-bootstrap";
 import { router } from "@inertiajs/react";
 
 export const columns = [
     {
-        accessorKey: "id",
-        header: "ID",
-        size: 150,
+        accessorKey: "Edit",
+        header: startCase("Edit"),
+        enableGlobalFilter: false,
+        Cell: ({ cell }) => {
+            const id = cell.row.original.id;
+            return (
+                <Stack direction="horizontal" gap={2}>
+                    <Button
+                        size="sm"
+                        variant="info"
+                        onClick={() => {
+                            router.get(adminRoute(`/posts/${id}/edit`));
+                        }}
+                    >
+                        <EditIcon />
+                    </Button>
+                </Stack>
+            );
+        },
         enableSorting: false,
-        enableColumnFilter: false,
+        size: 50,
     },
+    // {
+    //     accessorKey: "id",
+    //     header: "ID",
+    //     size: 150,
+    //     enableSorting: false,
+    //     enableColumnFilter: false,
+    // },
     {
         accessorKey: "title",
         header: "Title",
@@ -67,40 +88,5 @@ export const columns = [
         size: 50,
         enableSorting: false,
         enableColumnFilter: false,
-    },
-    {
-        accessorKey: "action",
-        header: startCase("action"),
-        enableGlobalFilter: false,
-        Cell: ({ cell }) => {
-            const id = cell.row.original.id;
-            return (
-                <Stack direction="horizontal" gap={2}>
-                    <Button
-                        size="sm"
-                        variant="info"
-                        onClick={() => {
-                            router.get(adminRoute(`/posts/${id}/edit`));
-                        }}
-                    >
-                        <EditIcon />
-                    </Button>
-                    <Button
-                        size="sm"
-                        variant="danger"
-                        onClick={() =>
-                            swalConfirmBox().then((result) => {
-                                if (result.isConfirmed) {
-                                    router.delete(adminRoute("/posts/" + id));
-                                }
-                            })
-                        }
-                    >
-                        <DeleteIcon />
-                    </Button>
-                </Stack>
-            );
-        },
-        enableSorting: false,
     },
 ];

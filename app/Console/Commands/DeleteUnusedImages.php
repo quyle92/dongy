@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Console\Command;
 use App\Models\Post;
 
@@ -40,8 +41,12 @@ class DeleteUnusedImages extends Command
         $imagesInFileSystem =  collect(Storage::files("/images"));
         $unusedImages = $imagesInFileSystem->diff($postImages);
 
-        $unusedImages->each(function ($img) {
-            Storage::delete($img);
-        });
+        if ($unusedImages->count() > 0) {
+            $unusedImages->each(function ($img) {
+                Storage::delete($img);
+            });
+
+            Artisan::command("php artisan backup:run --only-files");
+        }
     }
 }

@@ -9,6 +9,7 @@ function EditPost() {
     return (
         <PostEditor
             formData={{
+                id: post.id,
                 title: post.title,
                 content: post.content,
                 category_id: post.category_id,

@@ -25,10 +25,10 @@ class UpsertPostRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = request()->post?->id;
+        $id = request()?->id;
 
         return [
-            'title' => ['required',  'max:255', $id ? Rule::unique(Post::table())->ignore($id) : 'unique:' . Post::table()],
+            'title' => ['required',  'max:255', Rule::unique(Post::table())->ignore($id)],
             'content' => ['required'],
             'category_id' => ['required', 'exists:' . Category::table() . ",id"],
             "status" => ["required", Rule::in(PostStatus::values())],

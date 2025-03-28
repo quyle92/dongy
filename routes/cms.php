@@ -24,7 +24,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/posts', [PostManagementController::class, 'index'])->name("home");
     Route::get('/posts/create', [PostManagementController::class, 'create']);
     Route::post('/posts/create/upload-image', [PostManagementController::class, 'uploadImage'])->name("posts.create.uploadImage");
-    Route::post('/posts', [PostManagementController::class, 'store']);
+    Route::post('/posts', [PostManagementController::class, 'store'])->name("posts.store");
     Route::get('/posts/{post}/edit', [PostManagementController::class, 'edit'])->name("posts.edit");
     Route::post('/posts/update/{post}', [PostManagementController::class, 'update'])->name("posts.update");
     Route::post('/posts/delete', [PostManagementController::class, 'destroy'])->name("posts.delete");

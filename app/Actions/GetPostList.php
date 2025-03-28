@@ -11,7 +11,7 @@ class GetPostList
 {
     public function handle(Request $request)
     {
-        $sql = Post::query();
+        $sql = Post::query()->published();
         if ($globalFilter = $request->globalFilter) {
             $sql = $sql->with('category')->where("title", "LIKE", '%' . $globalFilter . '%')
                 ->orWhere("content", "LIKE", '%' . $globalFilter . '%');

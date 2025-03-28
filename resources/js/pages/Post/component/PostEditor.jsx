@@ -12,7 +12,6 @@ import { tableConfig } from "@/components/ckeditor/tableConfig";
 import { fontFamilyConfig } from "@/components/ckeditor/fontFamilyConfig";
 import { Card, Row, Col, Form, Button, Alert, Stack } from "react-bootstrap";
 import { SimpleUploadAdapter } from "ckeditor5";
-import { adminRoute } from "@/utils/helpers";
 import isEmpty from "lodash/isEmpty";
 
 function PostEditor({ formData, submitRoute }) {
@@ -30,7 +29,7 @@ function PostEditor({ formData, submitRoute }) {
 
     function submit(e) {
         e.preventDefault();
-        post(adminRoute(submitRoute), {
+        post(submitRoute, {
             onSuccess: () => {
                 clearErrors();
             },
@@ -39,13 +38,11 @@ function PostEditor({ formData, submitRoute }) {
 
     return (
         <Form noValidate onSubmit={submit}>
-            {(recentlySuccessful || flash.message) && (
-                <Alert variant={"success"} dismissible>
-                    {flash.message}
-                </Alert>
+            {recentlySuccessful && (
+                <Alert variant="success">{flash.message || "Success!"}</Alert>
             )}
             {!isEmpty(errors) && (
-                <Alert variant={"danger"} dismissible>
+                <Alert variant={"danger"}>
                     There is something wrong with your input. Please check
                     again!
                 </Alert>
@@ -57,6 +54,7 @@ function PostEditor({ formData, submitRoute }) {
                             <div className="row">
                                 <SubmitButton processing={processing} />
                                 <div className="mb-1">
+                                    <input type="hidden" value={data.id} />
                                     <Form.Control
                                         type="text"
                                         className="form-control"

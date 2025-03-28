@@ -36,7 +36,8 @@ class PostManagementController extends Controller
             "pageName" => "Create Post",
             'categories' => Category::all(["id", "name", "slug"]),
             "imageUploadUrl" => route("posts.create.uploadImage"),
-            "postStatus" => PostStatus::values()
+            "postStatus" => PostStatus::values(),
+            "postStorePath" => parse_url(route("posts.store", PHP_URL_PATH))["path"]
         ]);
     }
 
@@ -63,20 +64,13 @@ class PostManagementController extends Controller
     public function edit(Post $post)
     {
         return Inertia::render('Post/EditPost/EditPost', [
-            'post' => $post->only(
-                'id',
-                'title',
-                'content',
-                'category_id',
-                'status',
-                'source',
-            ),
+            'post' => $post,
             "pageName" => "Edit Post",
             'categories' => Category::all(["id", "name", "slug"]),
             "imageUploadUrl" => route("posts.create.uploadImage"),
             "postStatus" => PostStatus::values(),
-            "permalink" => "/" . Post::table() . "/" . $post->slug,
-            "postUpdatePath" => parse_url(route("posts.update", PHP_URL_PATH))["path"]
+            "permalink" => $post->permalink,
+            "postUpdatePath" => parse_url(route("posts.update", [$post->id]))["path"]
         ]);
     }
 

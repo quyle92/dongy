@@ -20531,7 +20531,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
     }
 }
 .layout-navbar-fixed .layout-navbar {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     left: 0;

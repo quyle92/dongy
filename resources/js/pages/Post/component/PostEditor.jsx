@@ -91,7 +91,7 @@ function PostEditor({ formData, submitRoute }) {
                                                 ...plugins,
                                                 SimpleUploadAdapter,
                                             ],
-                                            toolbar: toolbar,
+                                            toolbar: [...toolbar],
                                             image: imageConfig,
                                             heading: headingConfig,
                                             table: tableConfig,

@@ -34,6 +34,7 @@ import {
     TableProperties,
     TableCellProperties,
     Font,
+    Alignment,
 } from "ckeditor5";
 
 export const plugins = [
@@ -72,4 +73,5 @@ export const plugins = [
     TableProperties,
     TableCellProperties,
     Font,
+    Alignment,
 ];

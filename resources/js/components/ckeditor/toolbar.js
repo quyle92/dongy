@@ -5,6 +5,7 @@ export const toolbar = [
     "heading",
     "uploadImage",
     "|",
+    "alignment",
     "bold",
     "italic",
     "underline",

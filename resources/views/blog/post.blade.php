@@ -21,4 +21,7 @@
             <x-search action="/posts/search"></x-search>
         </div>
     </div>
+    @push('scripts')
+    <script src="/js/post-script.js"></script>
+    @endpush
 </x-layout>

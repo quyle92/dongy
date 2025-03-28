@@ -18,6 +18,7 @@ class GetPostList
         } else {
             $sql = Post::with('category');
         }
+        $sql->orderByDesc("id");
 
         return $sql->paginate(
             perPage: $request->perPage,

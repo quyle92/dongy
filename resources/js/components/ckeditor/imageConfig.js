@@ -1,9 +1,9 @@
 export const imageConfig = {
     resizeOptions: [
         {
-            name: "resizeImage:original",
-            label: "Default image width",
-            value: null,
+            name: "resizeImage:100",
+            label: "100% page width",
+            value: "100",
         },
         {
             name: "resizeImage:50",
@@ -14,6 +14,11 @@ export const imageConfig = {
             name: "resizeImage:75",
             label: "75% page width",
             value: "75",
+        },
+        {
+            name: "resizeImage:original",
+            label: "Default image width",
+            value: null,
         },
         {
             name: "resizeImage:custom",

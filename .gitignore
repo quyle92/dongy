@@ -28,3 +28,4 @@ test.php
 /public/build
 /DEVSENSE/*
 draft.php
+.env

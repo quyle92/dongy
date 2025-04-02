@@ -6,7 +6,7 @@
             <div class="m-auto">No posts found!</div>
             @endif
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="col-md-8">
                     @isset($search)
                     <h3>Search results for: "<span class="fst-italic">{{ $search  }}</span>"</h3>
                     @endisset
@@ -16,20 +16,21 @@
                         <a href="/posts/{{$post->slug}}" class="link-underline link-underline-opacity-0 ">
                             <h2 class="post-title">{{Str::title($post->title)}}</h2>
                         </a>
-                        <p>{!! Str::limit($post->content,200) !!}</p>
+                        <div class="d-block">{!! Str::limit($post->content,200) !!}</div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                        <!-- Pager-->
                     </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
+                    <!-- End Post preview-->
                     @endforeach
-                    <!-- Pager-->
                     {{ $posts->links() }}
+                    <!-- Search bar -->
                 </div>
+                <x-search action="/posts/search" search="{{$search ?? ''}}"></x-search>
+
             </div>
-            <!-- Search bar -->
-            <x-search action="/posts/search" search="{{$search ?? ''}}"></x-search>
         </div>
-    </div>
-    @push('scripts')
-    <script src="/js/post-script.js"></script>
-    @endpush
+        @push('scripts')
+        <script src="/js/post-script.js"></script>
+        @endpush
 </x-layout>

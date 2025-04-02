@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models\Traits;
 
 use Illuminate\Support\Str;
-use PhpParser\Node\Stmt\TryCatch;
 
 trait HasSlug
 {
@@ -14,6 +13,12 @@ trait HasSlug
         parent::boot();
 
         static::creating(function ($model) {
+            $source = $model->title ?? $model->name;
+
+            $model->slug = Str::slug($source);
+        });
+
+        static::saving(function ($model) {
             $source = $model->title ?? $model->name;
 
             $model->slug = Str::slug($source);

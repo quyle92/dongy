@@ -36,6 +36,6 @@ class Post extends Model
 
     public function getPermalinkAttribute()
     {
-        return  "/" . Post::table() . "/" . $this->slug;
+        return  "/" . static::table() . "/" . $this->slug;
     }
 }

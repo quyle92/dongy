@@ -71,16 +71,7 @@ function PostEditor({ formData, submitRoute }) {
                                     </Form.Control.Feedback>
                                 </div>
                                 <div className="mb-3">
-                                    <strong>
-                                        Permalink:{" "}
-                                        <a
-                                            href={permalink}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            {permalink}
-                                        </a>
-                                    </strong>
+                                    <Permalink permalink={permalink} />
                                 </div>
                                 <div className="mb-3">
                                     <CKEditor
@@ -129,6 +120,9 @@ function PostEditor({ formData, submitRoute }) {
                                     <Form.Control.Feedback type="invalid">
                                         {errors.source}
                                     </Form.Control.Feedback>
+                                    <div className="mb-3">
+                                        <Permalink permalink={permalink} />
+                                    </div>
                                 </div>
                                 <SubmitButton processing={processing} />
                             </div>
@@ -241,5 +235,16 @@ function SubmitButton({ processing }) {
                 Submit
             </Button>
         </div>
+    );
+}
+
+function Permalink({ permalink }) {
+    return (
+        <strong>
+            Permalink:
+            <a href={permalink} target="_blank" rel="noreferrer">
+                {permalink}
+            </a>
+        </strong>
     );
 }

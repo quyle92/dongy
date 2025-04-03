@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "../css/core.css";
 import "../css/demo.css";
 import "../css/theme-default.css";
+import "../css/my-styles.css";
 
 createInertiaApp({
     resolve: (name) => {

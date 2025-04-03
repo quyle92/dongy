@@ -52,7 +52,6 @@ function PostEditor({ formData, submitRoute }) {
                     <Card>
                         <Card.Body>
                             <div className="row">
-                                <SubmitButton processing={processing} />
                                 <div className="mb-1">
                                     <input type="hidden" value={data.id} />
                                     <Form.Control
@@ -130,7 +129,7 @@ function PostEditor({ formData, submitRoute }) {
                     </Card>
                 </Col>
                 <Col md={2}>
-                    <Stack gap={3}>
+                    <Stack gap={3} className="sticky-sidebar">
                         <Card>
                             <Card.Header
                                 style={{
@@ -213,12 +212,10 @@ function PostEditor({ formData, submitRoute }) {
                                     );
                                 })}
                             </Card.Body>
+                            <Card.Footer className="text-muted">
+                                <SubmitButton processing={processing} />
+                            </Card.Footer>
                         </Card>
-                        {/* <div className="d-flex mb-3">
-                            <Button variant="info" type="submit">
-                                View
-                            </Button>
-                        </div> */}
                     </Stack>
                 </Col>
             </Row>
@@ -230,7 +227,7 @@ export default PostEditor;
 
 function SubmitButton({ processing }) {
     return (
-        <div className="d-flex justify-content-end mb-3">
+        <div>
             <Button variant="primary" type="submit" disabled={processing}>
                 Submit
             </Button>

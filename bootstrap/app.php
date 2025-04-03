@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->validateCsrfTokens(except: [
-            'admin/posts/create/upload-image',
+            'admin/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

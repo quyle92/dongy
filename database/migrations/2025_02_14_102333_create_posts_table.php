@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("title")->unique();
             $table->string("slug")->unique();
             $table->integer("category_id")->nullable();
-            $table->text("content");
+            $table->text("content")->collation("utf8mb4_vietnamese_ci");
             $table->string("status");
             $table->string("source");
             $table->timestamps();

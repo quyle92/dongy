@@ -29,6 +29,7 @@ class PostController extends Controller
     {
         $search = $request->search;
         $posts = Post::where("content",  'like', '%' . $search . '%')
+            ->orderByDesc("id")
             ->where("status", PostStatus::PUBLISHED)
             ->simplePaginate();
 

@@ -1,5 +1,5 @@
 <div class="col-md-4  ms-auto">
-    <form class="d-flex" action="{{ $attributes['action'] }}" method="GET">
+    <form class="d-flex sticky-sidebar" action="{{ $attributes['action'] }}" method="GET">
         @csrf
         <div class="input-group  w-100">
             <input class="form-control form-control-lg" type="text" placeholder="Search" name="search" value="{{$attributes['search']}}">
